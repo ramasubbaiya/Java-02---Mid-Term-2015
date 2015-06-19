@@ -1,5 +1,6 @@
 /*
  * Copyright 2015 Len Payne <len.payne@lambtoncollege.ca>.
+ * Updated 2015 Mark Russell <mark.russell@lambtoncollege.ca>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package model;
 
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests for the Account class
  */
 public class AccountTest {
-    
+
     public AccountTest() {
     }
 
@@ -47,11 +47,33 @@ public class AccountTest {
 
     @Test
     public void testGetBalanceIs100AfterDeposit500ThenWithdraw400() {
+        model.Account account = new model.Account();
+
+        //Deposit 500
+        account.deposit(500.0);
+
+        //Withdraw 400
+        account.withdraw(400.0);
+
+        //Expected should be (500-400) = 100 
+        double expResult = 100.0;
         
+        double result = account.getBalance();
+        assertEquals(expResult, result, 0.0);
     }
-    
+
     @Test
     public void testGetBalanceIsZeroAfterDeposit500ThenClose() {
-        
+        model.Account account = new model.Account();
+
+        //Deposit 500
+        account.deposit(500.0);
+
+        //Close the account
+        account.close();
+
+        double expResult = 0.0;
+        double result = account.getBalance();
+        assertEquals(expResult, result, 0.0);
     }
 }
